@@ -31,9 +31,13 @@ class MyApp extends StatelessWidget {
               ),
             ),
       ),
-      home: CategoriesScreen(),
+      //home: CategoriesScreen(),
+      initialRoute:
+          '/', //default value is '/' so no need to specify this property here but in case we want screen corresponding to a particular route to load up on app startup, we can specify its route here
       routes: {
-        "/category-meals": (_) => CategoryMealsScreen(),
+        '/': (_) => CategoriesScreen(),
+        // "/category-meals": (_) => CategoryMealsScreen(),
+        CategoryMealsScreen.routeName: (_) => CategoryMealsScreen(),
       },
     );
   }
