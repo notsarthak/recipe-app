@@ -17,6 +17,32 @@ class MealItem extends StatelessWidget {
     @required this.imageUrl,
   });
 
+  String get complexityText {
+    switch (complexity) {
+      case Complexity.Simple:
+        return "Simple";
+      case Complexity.Challenging:
+        return "Challenging";
+      case Complexity.Hard:
+        return "Hard";
+      default:
+        return "Unknown";
+    }
+  }
+
+  String get affordabilityText {
+    switch (affordability) {
+      case Affordability.Affordable:
+        return "Affordable";
+      case Affordability.Pricey:
+        return "Pricey";
+      case Affordability.Luxurious:
+        return "Expensive";
+      default:
+        return "Unknown";
+    }
+  }
+
   void selectMeal() {}
 
   Widget build(BuildContext context) {
@@ -42,7 +68,50 @@ class MealItem extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
+            Positioned(
+              bottom: 20,
+              right: 10,
+              child: Container(
+                color: Colors.black54,
+                padding: EdgeInsets.symmetric(
+                  vertical: 5,
+                  horizontal: 20,
+                ),
+                width: 300,
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 26,
+                  ),
+                  softWrap: true,
+                  overflow: TextOverflow.fade,
+                ),
+              ),
+            ),
           ]),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(children: [
+                    Icon(Icons.access_time),
+                    SizedBox(width: 6),
+                    Text("${duration} min"),
+                  ]),
+                  Row(children: [
+                    Icon(Icons.work),
+                    SizedBox(width: 6),
+                    Text("${complexityText}"),
+                  ]),
+                  Row(children: [
+                    Icon(Icons.access_time),
+                    SizedBox(width: 6),
+                    Text("${affordabilityText}"),
+                  ]),
+                ]),
+          ),
         ]),
       ),
     );
