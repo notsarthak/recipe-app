@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import "./screens/categories_screen.dart";
 import "./screens/category_meals_screen.dart";
 import "./screens/meal_detail_screen.dart";
+import "./screens/tabs_screen.dart";
 
 void main() {
   runApp(MyApp());
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
       initialRoute:
           '/', //default value is '/' so no need to specify this property here but in case we want screen corresponding to a particular route to load up on app startup, we can specify its route here
       routes: {
-        '/': (_) => CategoriesScreen(),
+        '/': (_) => TabsScreen(),
         // "/category-meals": (_) => CategoryMealsScreen(),
         CategoryMealsScreen.routeName: (_) => CategoryMealsScreen(),
         MealDetailScreen.routeName: (_) => MealDetailScreen(),
