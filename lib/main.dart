@@ -25,6 +25,7 @@ class _MyAppState extends State<MyApp> {
     "vegetarian": false,
   };
   List<Meal> _availableMeals = DUMMY_MEALS;
+  List<Meal> _favoriteMeals = [];
 
   void _setFilters(Map<String, bool> filterData) {
     setState(() {
@@ -43,6 +44,21 @@ class _MyAppState extends State<MyApp> {
           return true;
       }).toList();
     });
+  }
+
+  void _toggleFavorite(String mealId) {
+    setState(() {
+      int existingIndex =
+          _favoriteMeals.indexWhere((meal) => meal.id == mealId);
+      if (existingIndex == -1)
+        _favoriteMeals.add(DUMMY_MEALS.firstWhere((meal) => meal.id == mealId));
+      else
+        _favoriteMeals.removeAt(existingIndex);
+    });
+  }
+
+  bool _isFavorite(String id) {
+    return _favoriteMeals.any((meal) => meal.id == id);
   }
 
   @override
@@ -72,11 +88,12 @@ class _MyAppState extends State<MyApp> {
       initialRoute:
           '/', //default value is '/' so no need to specify this property here but in case we want screen corresponding to a particular route to load up on app startup, we can specify its route here
       routes: {
-        '/': (_) => TabsScreen(),
+        '/': (_) => TabsScreen(_favoriteMeals),
         // "/category-meals": (_) => CategoryMealsScreen(),
         CategoryMealsScreen.routeName: (_) =>
             CategoryMealsScreen(_availableMeals),
-        MealDetailScreen.routeName: (_) => MealDetailScreen(),
+        MealDetailScreen.routeName: (_) =>
+            MealDetailScreen(_toggleFavorite, _isFavorite),
         FiltersScreen.routeName: (_) => FiltersScreen(_filters, _setFilters),
       },
       // onGenerateRoute: (settings) {
